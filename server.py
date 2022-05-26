@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from sqlalchemy import create_engine, Column, Float, Integer, DateTime, Text, select
 from sqlalchemy.orm import declarative_base, Session
 import datetime
@@ -26,7 +26,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    print('/ called')
     json = request.get_json()
     with Session(ENGINE) as session:
         airqual = AirQuality(
@@ -40,6 +39,10 @@ def hello_world():
         session.add(airqual)
         session.commit()
         smt = select(AirQuality)
-        for aq in session.scalars(smt):
-            print(aq)
     return "<p>OK</p>"
+
+@app.route("/values")
+def values():
+    with Session(ENGINE) as session:
+        smt = select(AirQuality)
+    return render_template("values.html", aq=session.scalars(smt))

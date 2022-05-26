@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Air Quality</title>
+</head>
+<body>
+  <h1>Air Quality</h1>
+  <table>
+    <tr>
+      <th>Temp</th>
+      <th>Loc</th>
+      <th>Hum</th>
+      <th>Time</th>
+    </tr>
+    {% for val in aq %}
+    <tr>
+      <td>{{val.temperature}}</td>
+      <td>{{val.location}}</td>
+      <td>{{val.humidity}}</td>
+      <td>{{val.timestamp}}</td>
+      
+    </tr>
+    {% endfor %}
+  </table>
+</body>
